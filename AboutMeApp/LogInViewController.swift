@@ -39,6 +39,7 @@ final class LogInViewController: UIViewController {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
+        view.endEditing(true)
     }
     
     private func showAlert(withTitle title: String, andMessage message: String) {

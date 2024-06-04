@@ -7,22 +7,34 @@
 
 import UIKit
 
-final class AboutMeViewController: UITabBarController {
+final class AboutMeViewController: UIViewController {
 
+    @IBOutlet var surnameLabel: UILabel!
+    @IBOutlet var nameLabel: UILabel!
+    @IBOutlet var workPlaceLabel: UILabel!
+    @IBOutlet var professionLabel: UILabel!
+    @IBOutlet var fullNameLabel: UILabel!
+    
+    @IBOutlet var photo: UIImageView!
+    
+    var user: User!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        surnameLabel.text = user.person.surname
+        nameLabel.text = user.person.name
+        workPlaceLabel.text = user.person.company.nameOfCompany
+        professionLabel.text  = user.person.company.profession
+        photo.image = UIImage(named: user.person.photo)
+        fullNameLabel.text = user.person.fullName
+        
+        photo.layer.cornerRadius = photo.frame.width / 2
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        guard let bioVC = segue.destination as? BioViewController else {return}
+        bioVC.user = user
     }
-    */
+
 
 }

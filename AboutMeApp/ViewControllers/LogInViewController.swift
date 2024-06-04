@@ -14,14 +14,13 @@ final class LogInViewController: UIViewController {
     
     @IBOutlet var logInButton: UIButton!
     
-    private let user = "User"
-    private let password = "123"
+    private let user = User.getUser()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        userNameTF.text = user
-        passwordTF.text = password
+        userNameTF.text = user.logIn
+        passwordTF.text = user.password
         
         logInButton.layer.cornerRadius = 15
         
@@ -30,17 +29,19 @@ final class LogInViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let tabBarController = segue.destination as? UITabBarController else {return}
         tabBarController.viewControllers?.forEach({ viewController in
-            if let userVC = viewController as? WelcomeViewController  {
-                userVC.user = userNameTF.text
-            } else if let myVC = viewController as? AboutMeViewController {
-                
+            if let welcomeVC = viewController as? WelcomeViewController {
+                welcomeVC.user = user
+            } else if let navigationVC = viewController as? UINavigationController {
+                let aboutMeVC = navigationVC.topViewController
+                guard let aboutMeVC = aboutMeVC as? AboutMeViewController else {return}
+                aboutMeVC.user = user
             }
-            
         })
+      
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        guard userNameTF.text == user , passwordTF.text == password else {
+        guard userNameTF.text == user.logIn , passwordTF.text == user.password else {
             showAlert(
                 withTitle: "Invalid login or password",
                 andMessage: "Please, enter correct login and password"
@@ -58,8 +59,8 @@ final class LogInViewController: UIViewController {
     
     @IBAction func showLoginAndPassword(_ sender: UIButton) {
         sender.tag == 0
-        ? showAlert(withTitle: "Your User Name", andMessage: user)
-        : showAlert(withTitle: "Your password", andMessage: password)
+        ? showAlert(withTitle: "Your User Name", andMessage: user.logIn)
+        : showAlert(withTitle: "Your password", andMessage: user.password)
     }
     
 

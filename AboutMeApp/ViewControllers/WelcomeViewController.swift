@@ -7,17 +7,21 @@
 
 import UIKit
 
-final class WelcomeViewController: UITabBarController {
+final class WelcomeViewController: UIViewController {
+    
     
     @IBOutlet var userLabel: UILabel!
     
-    var user: String!
+    @IBOutlet var userNameLabel: UILabel!
+    
+    var user: User!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       
+        userLabel.text = user.logIn
+        userNameLabel.text = user.person.fullName
         
-        userLabel.text = user
-
     }
-
+    
 }

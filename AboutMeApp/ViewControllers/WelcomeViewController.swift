@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class WelcomeViewController: UIViewController {
+final class WelcomeViewController: UITabBarController {
     
     @IBOutlet var userLabel: UILabel!
     
